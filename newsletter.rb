@@ -22,7 +22,6 @@ ARTICLES = [
   {"author": "Michale Bruen Boehm", "title": "Consulting", "text": "Everyone has an individual background. Someone may come from Python, someone else may come from Perl, and they may be surprised by different aspects of the language. Then they come up to me and say, 'I was surprised by this feature of the language, so therefore Ruby violates the principle of least surprise.' Wait. Wait. The principle of least surprise is not for you only."},
   {"author": "Tony Keeling Cartwright", "title": "Design", "text": "Often people, especially computer engineers, focus on the machines. But in fact we need to focus on humans, on how humans care about doing programming or operating the application of the machines."},
 ]
-
 #########################
 # Methods to generate the newsletter
 #########################
@@ -30,31 +29,49 @@ ARTICLES = [
 def calculate_recipients
   # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
   # write a method that will return an array of only the subscribers who haven't unsubscribed
+  recipients = SUBSCRIBERS.reject {|w| UNSUBSCRIBED.include? w}
 end
 
-def first_n_articles(number_of_articles
-  ARTICLES.first(number_of_articles)
+
+
+def first_n_articles(number_of_articles)
+  #binding.pry
+  ARTICLES.first(number_of_articles.to_i)
 end
 
 def print_recipients
   # Write a method that uses the output of calculate_recipients
   # and returns a list of emails separated by commas
   # Ex) "abc@email.com, def@email.com, ghi@email.com"
+  recipients = calculate_recipients.join(", ")
+  puts recipients
 end
 
+
 def print_one_article(article)
+  #binding.pry
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
+  puts "#{article[:title]}"
+  puts "by #{article[:author]}"
+  puts "#{article[:text]}"
+  puts " "
 end
 
+
 def print_many_articles(articles)
+  #binding.pry
   # Write a method that will take in an array of article hashes
   # and format each one using the print_one_article method
+  # puts "#{article[:title]}"
+  # puts "by #{article[:author]}"
+  # puts "#{article[:text]}"
+  articles.each { |article| print_one_article(article) }
 end
 
 def format_campus_location(campus)
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{campus[:name]}"
 end
 
 def format_subject
@@ -80,7 +97,6 @@ def print_newsletter(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
 
-  end
 end
 
 def run
